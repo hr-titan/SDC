@@ -12,6 +12,7 @@ app.get('/qa/questions', (req, res) => {
 
   const query = `SELECT q.id, q.body, q.date_written, a.id, a.question_id, a.body, a.date_written FROM questions q INNER JOIN answers a ON q.id=a.question_id LIMIT 10;`
 
+  //comment
 
   db.query(query, [product_id], (err, results) => {
     if (err) {
