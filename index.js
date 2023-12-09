@@ -119,6 +119,4 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
   })
 })
 
-
-
 app.listen(PORT, () => console.log(`Connection successful. Listening on ${PORT}`))
