@@ -120,7 +120,6 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
 })
 
 app.post('/qa/questions', (req, res) => {
-  // console.log(req.body);
 
   //query for checking after postman POST:
   // SELECT * FROM questions WHERE questions.product_id = <product_id entered in req body> ORDER BY questions.id DESC LIMIT 10;
