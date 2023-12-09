@@ -119,4 +119,75 @@ app.get('/qa/questions/:question_id/answers', (req, res) => {
   })
 })
 
+app.post('/qa/questions', (req, res) => {
+  // console.log(req.body);
+
+  //query for checking after postman POST:
+  // SELECT * FROM questions WHERE questions.product_id = <product_id entered in req body> ORDER BY questions.id DESC LIMIT 10;
+
+  let product_id = req.body.product_id;
+  let body = req.body.body;
+  let date_written = new Date();
+  let asker_name = req.body.asker_name;
+  let asker_email = req.body.asker_email;
+  let reported = 0;
+  let helpful = 0;
+
+
+  const query = `
+    INSERT INTO questions (product_id, body, date_written, asker_name, asker_email, reported, helpful)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+      `;
+
+  db.query(query, [product_id, body, date_written, asker_name, asker_email, reported, helpful], (err, results) => {
+    if (err) {
+      console.log('error executing query', err)
+      res.sendStatus(500).json();
+      return;
+    } else {
+      console.log('results: ', results.insertId);
+      res.sendStatus(200);
+    }
+  })
+})
+
+app.post('/qa/questions/:question_id/answers', (req, res) => {
+
+  let question_id = req.params.question_id;
+  console.log('question_id: ', question_id)
+  let body = req.body.body;
+  let date_written = new Date();
+  let answerer_name = req.body.name;
+  // console.log('name: ', answerer_name)
+  let answerer_email = req.body.email;
+  let reported = 0;
+  let helpful = 0;
+  let photos = req.body.photos.join(',');
+
+  const query = `
+    INSERT INTO answers (question_id, body, date_written, answerer_name, answerer_email, reported, helpful)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+      `;
+
+  db.query(query, [question_id, body, date_written, answerer_name, answerer_email, reported, helpful], (err, results) => {
+    if (err) {
+      console.log('error executing query', err)
+      res.sendStatus(500).json();
+      return;
+    } else {
+      let answer_id = results.insertId;
+      const photoInsertQuery = `INSERT INTO photos (answer_id, url) VALUES (?, ?)`
+      db.query(photoInsertQuery, [answer_id, photos], (err, results) => {
+        if (err) {
+          console.log('error executing query in photos', err)
+          res.sendStatus(500).json();
+          return;
+        }
+      })
+      console.log(results);
+      res.sendStatus(201);
+    }
+  })
+})
+
 app.listen(PORT, () => console.log(`Connection successful. Listening on ${PORT}`))
