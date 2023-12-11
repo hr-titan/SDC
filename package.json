@@ -5,7 +5,6 @@
 "scripts": {
   "test": "echo \"Error: no test specified\" && exit 1",
   "create-db": "mysql -u root < QASchema.sql",
-  "etl": "node etl.js || echo 'ETL process failed'",
   "start": "nodemon server/index.js"
 },
 "keywords": [],
