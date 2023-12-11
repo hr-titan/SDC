@@ -189,4 +189,59 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
   })
 })
 
+app.put('/qa/questions/:question_id/helpful', (req, res) => {
+  const query = `
+  UPDATE questions q
+  SET q.helpful = q.helpful + 1
+  WHERE q.id = ?
+  `;
+  db.query(query, [req.query.question_id], (err, results) =>{
+    if (err) {
+      console.log('error updating helpful in questions: ', err)
+      res.sendStatus(500);
+    } else {
+      console.log(results);
+      res.sendStatus(201);
+    }
+  })
+})
+
+app.put('/qa/questions/:question_id/report', (req, res) => {
+  const query = `
+  UPDATE questions q
+  SET q.reported = 1
+  WHERE q.id = ?
+  `
+  db.query(query, [req.query.question_id], (err, results) =>{
+    if (err) {
+      console.log('Error marking report in questions: ', err)
+      res.sendStatus(500);
+    } else {
+      console.log(results);
+      res.sendStatus(204);
+    }
+  })
+})
+
+app.put('/qa/answers/:answer_id/helpful', (req, res) => {
+  const query = `
+  UPDATE answers a
+  SET a.helpful = a.helpful + 1
+  WHERE a.id = ?
+  `;
+  db.query(query, [req.query.answer_id], (err, results) => {
+    return err ? res.sendStatus(500) : res.sendStatus(204);
+  })
+})
+
+app.put('/qa/answers/:answer_id/report', (req, res) => {
+  const query = `UPDATE answers a SET a.reported = 1 WHERE a.id = ?`;
+  db.query(query, [req.query.answer_id], (err, results) => {
+    return err ? res.sendStatus(500) : res.sendStatus(204);
+  })
+})
+
+
+
+
 app.listen(PORT, () => console.log(`Connection successful. Listening on ${PORT}`))
