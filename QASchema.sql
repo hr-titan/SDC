@@ -5,7 +5,7 @@ CREATE DATABASE questionsAnswers;
 USE questionsAnswers;
 
 CREATE TABLE questions (
-  id INT NOT NULL PRIMARY KEY,
+  id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
   product_id INT NOT NULL,
   body VARCHAR(255) NOT NULL,
   date_written TIMESTAMP NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE questions (
 );
 
 CREATE TABLE answers (
-  id INT NOT NULL PRIMARY KEY,
+  id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
   question_id INT NOT NULL,
   body VARCHAR(255),
   date_written TIMESTAMP NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE answers (
 );
 
 CREATE TABLE photos (
-  photo_id INT NOT NULL PRIMARY KEY,
+  photo_id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
   answer_id INT NOT NULL,
   url VARCHAR(255) NOT NULL,
   FOREIGN KEY (answer_id) REFERENCES answers(id)
