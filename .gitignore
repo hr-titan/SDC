@@ -1,3 +1,5 @@
 node_modules/
 csvFiles/
 .DS_Store
+artilleryTests/
+K6/
