@@ -31,9 +31,9 @@ scenarios:
   - flow:
       - loop:
         - get:
-            url: "/qa/questions?product_id=348112"
-        - get:
-            put: "/qa/questions/:question_id/helpful"
-        - post:
-            url: "/qa/questions"
+            url: "/qa/questions/:question_id/answers"
+        # - get:
+        #     url: "/pony"
+        # - get:
+        #     url: "/armadillo"
         count: 100
