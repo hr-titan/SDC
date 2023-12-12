@@ -13,6 +13,7 @@ CREATE TABLE questions (
   asker_email VARCHAR(255) NOT NULL,
   reported TINYINT NOT NULL,
   helpful INT
+  -- CREATE INDEX idx_questions_product_id ON questions (product_id)
 );
 
 CREATE TABLE answers (
@@ -25,6 +26,7 @@ CREATE TABLE answers (
   reported TINYINT NOT NULL,
   helpful INT NOT NULL,
   FOREIGN KEY (question_id) REFERENCES questions(id)
+  -- CREATE INDEX idx_answers_question_id ON answers (question_id)
 );
 
 CREATE TABLE photos (
@@ -32,6 +34,7 @@ CREATE TABLE photos (
   answer_id INT NOT NULL,
   url VARCHAR(255) NOT NULL,
   FOREIGN KEY (answer_id) REFERENCES answers(id)
+  -- CREATE INDEX idx_photos_answer_id ON photos (answer_id)
 );
 
 
