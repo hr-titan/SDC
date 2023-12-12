@@ -98,7 +98,8 @@ module.exports = {
       SET q.helpful = q.helpful + 1
       WHERE q.id = ?
       `;
-    db.query(query, [req.query.question_id], (err, results) =>{
+      // console.log(req.params.question_id);
+    db.query(query, [req.params.question_id], (err, results) =>{
       if (err) {
         console.log('error updating helpful in questions: ', err)
         res.sendStatus(500);
@@ -114,7 +115,8 @@ module.exports = {
       SET q.reported = 1
       WHERE q.id = ?
       `;
-    db.query(query, [req.query.question_id], (err, results) =>{
+      console.log(req.params.question_id)
+    db.query(query, [req.params.question_id], (err, results) =>{
       if (err) {
         console.log('Error marking report in questions: ', err)
         res.sendStatus(500);
