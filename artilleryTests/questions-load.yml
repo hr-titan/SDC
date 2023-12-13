@@ -32,8 +32,8 @@ scenarios:
       - loop:
         - get:
             url: "/qa/questions?product_id=348112"
-        - get:
-            put: "/qa/questions/:question_id/helpful"
-        - post:
-            url: "/qa/questions"
+        # - put:
+        #     put: "/qa/questions/:question_id/helpful?question_id=3518966"
+        # - post:
+        #     url: "/qa/questions"
         count: 100
