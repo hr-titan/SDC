@@ -3,3 +3,4 @@ csvFiles/
 .DS_Store
 artilleryTests/
 K6/
+.env

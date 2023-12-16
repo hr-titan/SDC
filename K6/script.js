@@ -14,9 +14,9 @@ export default function () {
   //GET all data
   let min = 500000;
   let max = 800000;
-  // const random1 = Math.floor((Math.random() * (max - min) + min));
-  // const res1 = http.get(`http://localhost:3000/qa/questions?product_id=${random1}`);
-  // sleep(1);
+  const random1 = Math.floor((Math.random() * (max - min) + min));
+  const res1 = http.get(`http://localhost:3000/qa/questions?product_id=900000`);
+  sleep(1);
 
   //GET all answers
   // const random2 = Math.floor((Math.random() * (max - min) + min));
@@ -63,7 +63,7 @@ export default function () {
   // sleep(1);
 
   //mark report answer
-  const random8 = Math.floor((Math.random() * (200000 - 100000) + 100000));
-  const res5 = http.put(`http://localhost:3000/qa/answers/${random8}/report`);
-  sleep(1);
+  // const random8 = Math.floor((Math.random() * (200000 - 100000) + 100000));
+  // const res5 = http.put(`http://localhost:3000/qa/answers/${random8}/report`);
+  // sleep(1);
 }

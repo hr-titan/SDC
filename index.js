@@ -1,8 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const db = require('./db');
 const PORT = 3000;
 const questionControllers = require('./controllers/questions.js');
 const answersControllers = require('./controllers/answers.js');
+const cache = require('memory-cache');
 
 const morgan = require('morgan');
 const app = express();
