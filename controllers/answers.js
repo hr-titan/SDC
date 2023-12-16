@@ -73,7 +73,7 @@ module.exports = {
         db.query(photoInsertQuery, [answer_id, photos], (err, results) => {
           if (err || !answer_id) {
             console.log('error executing query in photos', err)
-            res.sendStatus(500).json();
+            res.sendStatus(500);
             return;
           }
         })

@@ -1,9 +1,20 @@
 const express = require('express');
 const db = require('../db');
+const cache = require('memory-cache');
 
 module.exports = {
   getAll: (req, res) => {
     const { product_id } = req.query;
+    const cacheKey = JSON.stringify(req.query);
+
+    const cachedData = cache.get(cacheKey);
+
+    if (cachedData) {
+      console.log('response from cache---- ', cachedData);
+      res.json(cachedData);
+      return;
+    };
+
     const query1 = `
       SELECT
         q.product_id,
@@ -54,18 +65,16 @@ module.exports = {
 
     db.query(query1, [product_id], (err, results) => {
       if (err) {
-        console.log('error executing query', err)
-        res.sendStatus(500).json();
-        return;
+        console.log('error executing query', err);
+        res.sendStatus(500);
       } else {
-        console.log(results);
+        console.log('respsonse from database: ', results);
+        cache.put(cacheKey, results, 10000);
         res.json(results);
       }
     })
   },
   addQuestion: (req, res) => {
-    //query for checking after postman POST:
-    // SELECT * FROM questions WHERE questions.product_id = <product_id entered in req body> ORDER BY questions.id DESC LIMIT 10;
 
     let product_id = req.body.product_id;
     let body = req.body.body;
@@ -117,6 +126,9 @@ module.exports = {
       `;
       console.log(req.params.question_id)
     db.query(query, [req.params.question_id], (err, results) =>{
+      if (!results.length) {
+        throw err;
+      }
       if (err) {
         console.log('Error marking report in questions: ', err)
         res.sendStatus(500);
