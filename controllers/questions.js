@@ -54,18 +54,14 @@ module.exports = {
 
     db.query(query1, [product_id], (err, results) => {
       if (err) {
-        console.log('error executing query', err)
         res.sendStatus(500).json();
         return;
       } else {
-        console.log(results);
         res.json(results);
       }
     })
   },
   addQuestion: (req, res) => {
-    //query for checking after postman POST:
-    // SELECT * FROM questions WHERE questions.product_id = <product_id entered in req body> ORDER BY questions.id DESC LIMIT 10;
 
     let product_id = req.body.product_id;
     let body = req.body.body;
@@ -98,7 +94,6 @@ module.exports = {
       SET q.helpful = q.helpful + 1
       WHERE q.id = ?
       `;
-      // console.log(req.params.question_id);
     db.query(query, [req.params.question_id], (err, results) =>{
       if (err) {
         console.log('error updating helpful in questions: ', err)
