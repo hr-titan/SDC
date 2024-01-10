@@ -1,14 +1,15 @@
+require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const db = require('./db');
 const PORT = 3000;
-const questionControllers = require('./controllers/questions.js');
+const questionControllers = require('./controllers/lruCacheQuestions.js');
 const answersControllers = require('./controllers/answers.js');
 
-const morgan = require('morgan');
 const app = express();
 
 app.use(express.json());
-
+app.use(express.static(path.join(__dirname, './public/dist')));
 app.get('/qa/questions', questionControllers.getAll);
 app.post('/qa/questions', questionControllers.addQuestion);
 app.put('/qa/questions/:question_id/helpful', questionControllers.markHelpful);
